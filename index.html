@@ -1,1 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesorios JB - Catálogo Oficial</title>
+    <style>
+        /* ESTILOS PREMIUM (Oscuro, Elegante y Dorado VIP) */
+        :root {
+            --bg-principal: #090a0f;
+            --bg-tarjeta: #121420;
+            --color-oro: #d4af37;
+            --color-oro-brillante: #f3e5ab;
+            --texto-principal: #ffffff;
+            --texto-secundario: #a0a5c0;
+            --borde-tarjeta: #1e2238;
+            --sombra-vip: 0 8px 30px rgba(0, 0, 0, 0.7);
+        }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            line-height: 1.5;
+            padding-bottom: 50px;
+        }
+
+        /* CABECERA VIP */
+        .header-vip {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, #121420 0%, #090a0f 100%);
+            border-bottom: 1px solid var(--borde-tarjeta);
+            margin-bottom: 30px;
+        }
+
+        .header-vip h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--texto-principal);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .header-vip h1 span {
+            color: var(--color-oro);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .header-vip p {
+            font-size: 13px;
+            color: var(--texto-secundario);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* FILTROS DE CATEGORÍAS */
+        .categorias-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .categorias-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .btn-categoria {
+            background-color: var(--bg-tarjeta);
+            color: var(--texto-secundario);
+            border: 1px solid var(--borde-tarjeta);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-categoria.activo, .btn-categoria:hover {
+            background-color: var(--color-oro);
+            color: var(--bg-principal);
+            border-color: var(--color-oro);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        /* CUADRÍCULA DE PRODUCTOS */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 0 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .grid-productos {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 25px;
+                padding: 0 25px;
+            }
+        }
+
+        /* TARJETA DE PRODUCTO VIP */
+        .tarjeta-producto {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-tarjeta);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--sombra-vip);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tarjeta-producto:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-oro);
+        }
+
+        .img-contenedor {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #171a2b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-contenedor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tarjeta-producto:hover .img-contenedor img {
+            transform: scale(1.08);
+        }
+
+        .info-producto {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        @media (min-width: 768px) {
+            .info-producto {
+                padding: 18px;
+            }
+        }
+
+        .categoria-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--color-oro);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .titulo-producto {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--texto-principal);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .titulo-producto {
+                font-size: 16px;
+            }
+        }
+
+        .precio-producto {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-oro-brillante);
+            margin-top: auto;
+            margin-bottom: 12px;
+        }
+
+        .btn-pedir {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--color-oro);
+            color: var(--color-oro);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-pedir:hover {
+            background-color: var(--color-oro);
+            color: var(--bg-principal);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-pedir svg {
+            fill: currentColor;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera de la Marca -->
+    <header class="header-vip">
+        <h1>Accesorios <span>JB</span></h1>
+        <p>Colección Premium & Estilo</p>
+    </header>
+
+    <!-- Barra de Navegación de Categorías -->
+    <nav class="categorias-nav">
+        <button class="btn-categoria activo" onclick="filtrar('todos')">Todos</button>
+        <button class="btn-categoria" onclick="filtrar('termos')">Termos</button>
+        <button class="btn-categoria" onclick="filtrar('audio')">Auriculares</button>
+        <button class="btn-categoria" onclick="filtrar('combos')">Combos y Más</button>
+    </nav>
+
+    <!-- Cuadrícula de Productos cargando tus fotos reales -->
+    <main class="grid-productos">
+
+        <!-- Producto 1 -->
+        <article class="tarjeta-producto" data-categoria="termos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-33-39.jpg" alt="Producto 1" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Termos</span>
+                <h2 class="titulo-producto">Termo Térmico Premium - Modelo 1</h2>
+                <div class="precio-producto">$120,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Termo%20Modelo%201" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 2 -->
+        <article class="tarjeta-producto" data-categoria="termos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-33-56.jpg" alt="Producto 2" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Termos</span>
+                <h2 class="titulo-producto">Termo Térmico Premium - Modelo 2</h2>
+                <div class="precio-producto">$120,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Termo%20Modelo%202" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 3 -->
+        <article class="tarjeta-producto" data-categoria="audio">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-34-11.jpg" alt="Producto 3" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Audio</span>
+                <h2 class="titulo-producto">Auriculares Inalámbricos - Estilo 1</h2>
+                <div class="precio-producto">$85,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20los%20Auriculares%20Estilo%201" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 4 -->
+        <article class="tarjeta-producto" data-categoria="audio">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-34-28.jpg" alt="Producto 4" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Audio</span>
+                <h2 class="titulo-producto">Auriculares Inalámbricos - Estilo 2</h2>
+                <div class="precio-producto">$85,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20los%20Auriculares%20Estilo%202" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 5 -->
+        <article class="tarjeta-producto" data-categoria="combos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-34-44.jpg" alt="Producto 5" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Combos y Más</span>
+                <h2 class="titulo-producto">Combo Accesorio Especial 1</h2>
+                <div class="precio-producto">$150,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Combo%20Especial%201" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 6 -->
+        <article class="tarjeta-producto" data-categoria="combos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-34-59.jpg" alt="Producto 6" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Combos y Más</span>
+                <h2 class="titulo-producto">Combo Accesorio Especial 2</h2>
+                <div class="precio-producto">$150,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Combo%20Especial%202" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 7 -->
+        <article class="tarjeta-producto" data-categoria="termos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-35-19.jpg" alt="Producto 7" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Termos</span>
+                <h2 class="titulo-producto">Termo Térmico Premium - Modelo 3</h2>
+                <div class="precio-producto">$120,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Termo%20Modelo%203" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 8 -->
+        <article class="tarjeta-producto" data-categoria="termos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-35-34.jpg" alt="Producto 8" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Termos</span>
+                <h2 class="titulo-producto">Termo Térmico Premium - Modelo 4</h2>
+                <div class="precio-producto">$120,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Termo%20Modelo%204" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 9 -->
+        <article class="tarjeta-producto" data-categoria="audio">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-35-51.jpg" alt="Producto 9" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Audio</span>
+                <h2 class="titulo-producto">Auriculares Inalámbricos - Estilo 3</h2>
+                <div class="precio-producto">$85,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20los%20Auriculares%20Estilo%203" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 10 -->
+        <article class="tarjeta-producto" data-categoria="audio">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-36-09.jpg" alt="Producto 10" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Audio</span>
+                <h2 class="titulo-producto">Auriculares Inalámbricos - Estilo 4</h2>
+                <div class="precio-producto">$85,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20los%20Auriculares%20Estilo%204" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 11 -->
+        <article class="tarjeta-producto" data-categoria="combos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-36-28.jpg" alt="Producto 11" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Combos y Más</span>
+                <h2 class="titulo-producto">Combo Accesorio Especial 3</h2>
+                <div class="precio-producto">$150,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Combo%20Especial%203" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+        <!-- Producto 12 -->
+        <article class="tarjeta-producto" data-categoria="combos">
+            <div class="img-contenedor">
+                <img src="fotos/PHOTO-2026-07-14-13-36-44.jpg" alt="Producto 12" onerror="this.src='https://via.placeholder.com/400?text=Accesorios+JB'">
+            </div>
+            <div class="info-producto">
+                <span class="categoria-tag">Combos y Más</span>
+                <h2 class="titulo-producto">Combo Accesorio Especial 4</h2>
+                <div class="precio-producto">$150,000</div>
+                <a href="https://wa.me/573000000000?text=Hola%20Accesorios%20JB,%20estoy%20interesado%20en%20el%20Combo%20Especial%204" target="_blank" class="btn-pedir">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.016 14.075 1 11.999 1 6.558 1 2.131 5.371 2.127 10.8c-.001 1.714.463 3.39 1.341 4.888l-.997 3.642 3.73-.974l-.053-.024z"></path></svg>
+                    Pedir por WhatsApp
+                </a>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Script de filtrado por categorías -->
+    <script>
+        function filtrar(categoria) {
+            const botones = document.querySelectorAll('.btn-categoria');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            event.target.classList.add('activo');
+
+            const productos = document.querySelectorAll('.tarjeta-producto');
+            productos.forEach(producto => {
+                if (categoria === 'todos' || producto.getAttribute('data-categoria') === categoria) {
+                    producto.style.display = 'flex';
+                } else {
+                    producto.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
